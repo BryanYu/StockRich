@@ -1,16 +1,17 @@
+
 namespace StockRich.API.Tests;
 
 public class Tests
 {
-    [SetUp]
-    public void Setup()
+
+    public Tests()
     {
-        
     }
+    
 
     [Test]
-    public void Test1()
+    public async Task Test1()
     {
-        Assert.Pass();
+        
     }
 }
