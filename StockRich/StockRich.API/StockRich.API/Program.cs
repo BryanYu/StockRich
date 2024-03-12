@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace StockRich.API;
 
-public partial class Program
+public class Program
 {
     public static void Main(string[] args)
     {
