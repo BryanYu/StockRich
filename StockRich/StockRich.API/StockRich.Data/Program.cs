@@ -3,6 +3,7 @@
 using Hangfire;
 using Hangfire.PostgreSql;
 using StockRich.Data.Jobs;
+using StockRich.Domain.Config;
 
 namespace StockRich.Data;
 
@@ -20,11 +21,16 @@ public class Program
         });
 
         
+        
         builder.Services.AddHangfireServer();
         builder.Services.AddAuthorization();
         builder.Services.AddHttpClient();
+        builder.Services.Configure<OpenDataUrlConfig>(builder.Configuration.GetSection("OpenDataUrl"));
+        
+        
         builder.Services.AddSingleton<JobManager>();
         builder.Services.AddSingleton<CompanyDataSyncJob>();
+        
         
         var app = builder.Build();
         
