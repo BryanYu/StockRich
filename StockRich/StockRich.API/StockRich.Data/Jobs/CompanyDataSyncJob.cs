@@ -30,6 +30,7 @@ public class CompanyDataSyncJob
         if (!response.IsSuccessStatusCode)
         {
             _logger.LogError($"Fetch Data From {url} Error, HttpStatus:{response.StatusCode}");
+            return string.Empty;
         }
         await using var stream = await response.Content.ReadAsStreamAsync();
         var streamReader = new StreamReader(stream);

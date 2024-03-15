@@ -19,6 +19,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\StockRich.API\StockRich.API.csproj" />
+      <ProjectReference Include="..\StockRich.Data\StockRich.Data.csproj" />
     </ItemGroup>
 
 </Project>
