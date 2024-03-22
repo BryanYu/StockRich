@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="FluentAssertions" Version="6.12.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.28" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
         <PackageReference Include="NSubstitute" Version="5.1.0" />
         <PackageReference Include="NUnit" Version="3.13.3" />
@@ -20,6 +21,24 @@
     <ItemGroup>
       <ProjectReference Include="..\StockRich.API\StockRich.API.csproj" />
       <ProjectReference Include="..\StockRich.Data\StockRich.Data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="JobTests\MockData\MockCompanyInfo.json" />
+      <_ContentIncludedByDefault Remove="JobTests\MockData\MockCompanyInfo_NoNewer.json" />
+      <_ContentIncludedByDefault Remove="JobTests\MockData\MockCompanyInfo_OneNewer.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="MockData\MockCompanyInfo.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Update="MockData\MockCompanyInfo_NoNewer.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Update="MockData\MockCompanyInfo_OneNewer.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>

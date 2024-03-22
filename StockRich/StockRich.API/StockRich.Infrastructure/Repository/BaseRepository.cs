@@ -1,0 +1,2 @@
+﻿namespace StockRich.Infrastructure.Repository;
+

@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockRich.API", "StockRich.API\StockRich.API.csproj", "{05ADC67E-EF4F-4AFE-AA07-F37B163DD86B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockRich.Infrastucture", "StockRich.Infrastucture\StockRich.Infrastucture.csproj", "{BE961C56-A271-4C93-BC9B-5158F5D4A4A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockRich.Infrastructure", "StockRich.Infrastructure\StockRich.Infrastructure.csproj", "{BE961C56-A271-4C93-BC9B-5158F5D4A4A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockRich.Domain", "StockRich.Domain\StockRich.Domain.csproj", "{04E4B054-D247-4284-AB5E-5ACB6082EB37}"
 EndProject

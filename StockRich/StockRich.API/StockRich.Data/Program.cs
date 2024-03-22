@@ -1,5 +1,6 @@
 
 
+using System.Runtime.CompilerServices;
 using Hangfire;
 using Hangfire.PostgreSql;
 using StockRich.Data.Jobs;

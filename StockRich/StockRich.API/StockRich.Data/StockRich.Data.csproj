@@ -14,7 +14,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\StockRich.Domain\StockRich.Domain.csproj" />
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>StockRich.API.Tests</_Parameter1>
+        </AssemblyAttribute>
+        <ProjectReference Include="..\StockRich.Domain\StockRich.Domain.csproj" />
+      <ProjectReference Include="..\StockRich.Infrastructure\StockRich.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
