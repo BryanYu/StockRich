@@ -3,8 +3,12 @@
 using System.Runtime.CompilerServices;
 using Hangfire;
 using Hangfire.PostgreSql;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using StockRich.Data.Extension;
 using StockRich.Data.Jobs;
 using StockRich.Domain.Config;
+using StockRich.Infrastructure.Data;
 
 namespace StockRich.Data;
 
@@ -21,31 +25,25 @@ public class Program
                 config2.UseNpgsqlConnection(configuration.GetConnectionString("HangfireConnection")));
         });
 
-        
-        
+
+
         builder.Services.AddHangfireServer();
         builder.Services.AddAuthorization();
         builder.Services.AddHttpClient();
         builder.Services.Configure<OpenDataUrlConfig>(builder.Configuration.GetSection("OpenDataUrl"));
-        
-        
-        builder.Services.AddSingleton<JobManager>();
-        builder.Services.AddSingleton<CompanyDataSyncJob>();
-        
-        
+
+
+        builder.Services.AddTransient<CompanyDataSyncJob>();
+        builder.Services.AddDbContext<StockRichContext>(
+            option => option.UseNpgsql(builder.Configuration.GetConnectionString("StockRichConnection")),
+            contextLifetime: ServiceLifetime.Transient, 
+            optionsLifetime: ServiceLifetime.Transient);
         var app = builder.Build();
-        
         app.UseHangfireDashboard();
         app.UseRouting();
         app.UseAuthorization();
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapHangfireDashboard();
-        });
-
-        var jobManager = app.Services.GetService<JobManager>();
-        jobManager.Start();
-        
+        app.UseEndpoints(endpoints => { endpoints.MapHangfireDashboard(); });
+        app.UseJobStart();
         app.Run();
     }
 }

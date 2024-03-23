@@ -22,7 +22,7 @@ public class CompanyDataSyncJob
         _logger = logger;
         _stockRichContext = stockRichContext;
     }
-    internal async Task Execute()
+    public async Task Execute()
     {
         var dataContent = await FetchDataAsync();
         var newStocks  = await GetNewStocksAsync(dataContent);
@@ -59,8 +59,8 @@ public class CompanyDataSyncJob
                 Capital = capital,
                 ContactEmail = item["電子郵件信箱"].GetValue<string>(),
                 Website = item["網址"].GetValue<string>(),
-                CreateDatetime = DateTime.Now,
-                UpdateDatetime = DateTime.Now
+                CreateDatetime = new DateTime(DateTime.UtcNow.Ticks, DateTimeKind.Utc),
+                UpdateDatetime = new DateTime(DateTime.UtcNow.Ticks, DateTimeKind.Utc)
             };
         });
         return newStocks;
