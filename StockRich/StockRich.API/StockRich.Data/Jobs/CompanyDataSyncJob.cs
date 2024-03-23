@@ -15,8 +15,6 @@ public class CompanyDataSyncJob
     private readonly OpenDataUrlConfig _openDataUrlConfig;
     private readonly ILogger<CompanyDataSyncJob> _logger;
     private readonly StockRichContext _stockRichContext;
-
-    
     public CompanyDataSyncJob(IHttpClientFactory httpClientFactory, IOptions<OpenDataUrlConfig> openDataUrlOptions, ILogger<CompanyDataSyncJob> logger, StockRichContext stockRichContext)
     {
         _httpClientFactory = httpClientFactory;
@@ -24,7 +22,6 @@ public class CompanyDataSyncJob
         _logger = logger;
         _stockRichContext = stockRichContext;
     }
-    
     internal async Task Execute()
     {
         var dataContent = await FetchDataAsync();
@@ -32,7 +29,6 @@ public class CompanyDataSyncJob
         await _stockRichContext.CompanyInfos.AddRangeAsync(newStocks);
         await _stockRichContext.SaveChangesAsync();
     }
-
     internal async Task<IEnumerable<CompanyInfo>> GetNewStocksAsync(string dataContent)
     {
         var jsonArray = JsonArray.Parse(dataContent).AsArray();
@@ -70,7 +66,6 @@ public class CompanyDataSyncJob
         return newStocks;
     }
 
-    
     internal async Task<string> FetchDataAsync()
     {
         var url = $"{_openDataUrlConfig.TaiwanStockExchange}/t187ap03_L";
@@ -86,7 +81,4 @@ public class CompanyDataSyncJob
         var content = await streamReader.ReadToEndAsync();
         return content;
     }
-    
-    
-    
 }    

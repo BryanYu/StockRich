@@ -8,21 +8,12 @@ using StockRich.Domain.Config;
 
 namespace StockRich.API.Tests.JobTests;
 
-public class JobTests
+public class CompanyDataSyncTests : BaseJobTests
 {
-    private HttpClient _fakeHttpClient;
-    private IHttpClientFactory _httpClientFactory;
     private ILogger<CompanyDataSyncJob> _logger;
-    private IOptions<OpenDataUrlConfig> _options;
-    
-    public JobTests()
+    public CompanyDataSyncTests()
     {
-        var httpClientFactory = NSubstitute.Substitute.For<IHttpClientFactory>();
-        _options = Options.Create(new OpenDataUrlConfig { TaiwanStockExchange = "http://example.com" });
         _logger = NSubstitute.Substitute.For<ILogger<CompanyDataSyncJob>>();
-        var handlerMock = new HttpMessageMockHandler();
-        _fakeHttpClient = new HttpClient(handlerMock);
-        httpClientFactory.CreateClient().Returns(_fakeHttpClient);
     }
 
     [Test]
@@ -41,6 +32,8 @@ public class JobTests
     }
 
     [TestCase("MockCompanyInfo.json", 1)]
+    [TestCase("MockCompanyInfo_NoNewer.json", 0)]
+    [TestCase("MockCompanyInfo_OneNewer.json", 1)]
     public async Task CompanyDataAsyncJobTests_GetNewStocksAsync(string fileName, int expectedCount)
     {
         var dbContext = DbContextHelper.CreateInMemoryStockRichDbContext();
@@ -49,5 +42,4 @@ public class JobTests
         var actual = await arrange.GetNewStocksAsync(dataContent);
         actual.Count().Should().Be(expectedCount);
     }
-    
 }
